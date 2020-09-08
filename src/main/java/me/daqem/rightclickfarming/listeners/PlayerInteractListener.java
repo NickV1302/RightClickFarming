@@ -13,14 +13,15 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class PlayerInteractListener implements Listener {
 
-    public RightClickFarming plugin;
+    private final RightClickFarming plugin;
+    private final BreakCrops breakCrops;
+    private final PlantSeeds plantSeeds;
 
-    public PlayerInteractListener(final RightClickFarming pl) {
+    public PlayerInteractListener(RightClickFarming pl) {
         this.plugin = pl;
+        this.breakCrops = new BreakCrops(plugin);
+        this.plantSeeds = new PlantSeeds();
     }
-
-    private final BreakCrops breakCrops = new BreakCrops(RightClickFarming.getInstance());
-    PlantSeeds plantSeeds = new PlantSeeds();
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
@@ -31,8 +32,8 @@ public class PlayerInteractListener implements Listener {
         }
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (plugin.getConfig().getBoolean("hoe-required")) {
-                Material MainHand = player.getInventory().getItemInMainHand().getType();
-                if (MainHand == Material.WOODEN_HOE || MainHand == Material.STONE_HOE || MainHand == Material.IRON_HOE || MainHand == Material.GOLDEN_HOE || MainHand == Material.DIAMOND_HOE) {
+                Material mainHand = player.getInventory().getItemInMainHand().getType();
+                if (mainHand == Material.WOODEN_HOE || mainHand == Material.STONE_HOE || mainHand == Material.IRON_HOE || mainHand == Material.GOLDEN_HOE || mainHand == Material.DIAMOND_HOE) {
                     player.sendMessage("Hoe in hand");
                     breakCrops.breakCrops(block, player);
                     plantSeeds.plantSeeds("Wheat", block.getLocation().getBlock());
