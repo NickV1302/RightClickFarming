@@ -1,0 +1,6 @@
+hoe-required: false
+
+wheat:
+  seed-drops: true
+  min-seed-drops: 0
+  max-seed-drops: 3
