@@ -10,11 +10,10 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Objects;
-
 public class BreakCrops {
 
     public RightClickFarming plugin;
+
     public BreakCrops(RightClickFarming pl) {
         this.plugin = pl;
     }
@@ -28,12 +27,9 @@ public class BreakCrops {
             if (block.getType() == Material.WHEAT) {
                 block.setType(Material.AIR);
                 player.getInventory().addItem(new ItemStack(Material.WHEAT, 1));
-                try {
-                    if (Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("RightClickFarming")).getConfig().getBoolean("wheat.seed-drops")) {
-                        player.getInventory().addItem(new ItemStack(Material.WHEAT_SEEDS, dropMath.getRandomNumberInRange(plugin.getConfig().getInt("wheat.min-seed-drops"), plugin.getConfig().getInt("wheat.max-seed-drops"))));
-                    }
-                }catch (NullPointerException ex) {
-                    ex.printStackTrace();
+                if (plugin.getConfig().getBoolean("wheat.seed-drops")) {
+                    player.getInventory().addItem(new ItemStack(Material.WHEAT_SEEDS, dropMath.getRandomNumberInRange(plugin.getConfig().getInt("wheat.min-seed-drops"), plugin.getConfig().getInt("wheat.max-seed-drops"))));
+
                 }
             }
         }

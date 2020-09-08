@@ -1,14 +1,22 @@
 package me.daqem.rightclickfarming;
 
 import me.daqem.rightclickfarming.listeners.PlayerInteractListener;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class RightClickFarming extends JavaPlugin {
+
+    private static RightClickFarming instance;
 
     @Override
     public void onEnable() {
         registerEvents();
         loadConfig();
+        instance = this;
+    }
+
+    public static RightClickFarming getInstance() {
+        return instance;
     }
 
     public void registerEvents() {
@@ -16,8 +24,10 @@ public final class RightClickFarming extends JavaPlugin {
     }
 
     public void loadConfig() {
-        getConfig().options().copyDefaults(true);
+        final FileConfiguration config = this.getConfig();
+
+        config.options().copyDefaults(true);
         saveConfig();
-        System.out.println("[RightClickFarming] Config created");
+        System.out.println("[RightClickFarming] Loaded config");
     }
 }

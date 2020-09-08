@@ -19,10 +19,8 @@ public class PlayerInteractListener implements Listener {
         this.plugin = pl;
     }
 
-
-    BreakCrops breakCrops = new BreakCrops(null);
+    private final BreakCrops breakCrops = new BreakCrops(RightClickFarming.getInstance());
     PlantSeeds plantSeeds = new PlantSeeds();
-
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
