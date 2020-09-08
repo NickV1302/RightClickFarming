@@ -10,11 +10,6 @@ public class RightClickFarming extends JavaPlugin {
     public void onEnable() {
         registerEvents();
         loadConfig();
-        instance = this;
-    }
-
-    public static RightClickFarming getInstance() {
-        return instance;
     }
 
     public void registerEvents() {
